@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BankApplication {
@@ -57,6 +56,9 @@ public class BankApplication {
 				case 4:
 					withdrawFromAccount();
 					break;	
+				case 5:
+					transferBetweenAmount();
+					break;
 				case 6:
 					createAccount();
 					break;
@@ -86,6 +88,15 @@ public class BankApplication {
 		
 		for (BankAccount account : bank.findAccountsForHolder(ID)) {
 			System.out.println(account.toString());
+		}
+	}
+	
+	private void findCustomerFromPartOfName(){ //Alt 2
+		System.out.println("Search for: ");
+		String input = waitForString();
+		ArrayList<Customer> customers = bank.findByPartofName(input);
+		for (Customer cust : customers){
+			System.out.println(cust);
 		}
 	}
 	
@@ -146,17 +157,65 @@ public class BankApplication {
 		System.out.println(bank.findByNumber(accNbr));
 	}
 	
+	private void transferBetweenAmount() { //Alt 5
+		System.out.println("");
+		int accNbrBen=-1;
+		boolean validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number to be the benefactor: ");
+				accNbrBen=waitForInt();
+			} while (BankAccount.accountCounter<accNbrBen || accNbrBen<0);
+			
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbrBen) validAccNbr=true;
+			}
+		} while (!validAccNbr);
+		
+		int accNbrRec=-1;
+		validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number to be the recipient: ");
+				accNbrRec=waitForInt();
+			} while ((BankAccount.accountCounter<accNbrRec || accNbrRec<0) && accNbrRec==accNbrBen);
+			
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbrRec) validAccNbr=true;
+			}
+		} while (!validAccNbr);
+		
+		double transfer=-1;
+		do {
+			do {
+				System.out.print("Please enter a valid amount to withdraw: ");
+				transfer=waitForDouble();
+			} while (transfer<0);
+			
+			if(bank.findByNumber(accNbrBen).getAmount()<transfer) {
+				System.out.println("Error, amount withdrawn greater than account balance.");
+			}
+		} while (bank.findByNumber(accNbrBen).getAmount()<transfer);
+		
+		
+		bank.findByNumber(accNbrBen).withdraw(transfer);
+		bank.findByNumber(accNbrRec).deposit(transfer);
+		System.out.println(bank.findByNumber(accNbrBen));
+		System.out.println(bank.findByNumber(accNbrRec));
+		
+	}
+	
 	private void createAccount(){ //Alt 6
-		System.out.println("Name: ");
+		System.out.print("Name: ");
 		String name = waitForString();
-		System.out.println("ID: ");
+		System.out.print("ID: ");
 		Long id = waitForLong();
 		int nbr = bank.addAccount(name, id);
 		System.out.println("Account created: " + nbr);
 	}
 	
 	private void removeAccount(){ //Alt 7
-		System.out.println("Account Number: ");
+		System.out.print("Account Number: ");
 		int id = waitForInt();
 		bank.removeAccount(id);
 	}
@@ -168,47 +227,42 @@ public class BankApplication {
 		}
 	}
 	
-	private void findCustomerFromPartOfName(){ //Alt 2
-		System.out.println("Search for: ");
-		String input = waitForString();
-		ArrayList<Customer> customers = bank.findByPartofName(input);
-		for (Customer cust : customers){
-			System.out.println(cust);
-		}
-	}
-	
 	private int waitForInt() {
-		while(true) {
+		//while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
 			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
-		}
+		//}
+			return -1;
 	}
 	
 	private long waitForLong() {
-		while(true) {
+		//while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
 			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
-		}
+		//}
+			return -1;
 	}
 	private double waitForDouble() {
-		while(true) {
+		//while(true) {
 			try {
 				if(scanner.hasNext()) return Double.parseDouble(scanner.next());
 			} catch (NumberFormatException e) {
 				//String disposal=scanner.next();
 				System.out.println("Error, invalid option.");
 			}
-		}
+		//}
+			return -1;
 	}
 	
 	private String waitForString() {
-		while(true) {
+		//while(true) {
 			if(scanner.hasNext()) return scanner.next();
 			String disposal=scanner.nextLine();
 			System.out.println("Error, invalid option.");
-		}
+		//}
+			return null;
 	}
 
 }

@@ -31,6 +31,6 @@ public class Customer {
 	}
 	/** Returnerar en str�ngbeskrivning av kunden. */
 	public String toString(){
-		return name + ", " + "id " + id + ", " + "customer nr: " + customerNr;
+		return name + ", " + "ID " + id + ", " + "customer nr: " + customerNr;
 	}
 }

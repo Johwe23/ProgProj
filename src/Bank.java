@@ -11,8 +11,25 @@ public class Bank {
 	* den befintliga anv�ndas. Det nya kontonumret returneras.
 	*/
 	public int addAccount(String holderName, long idNr){
-		accounts.add(new BankAccount(holderName, idNr));
+		int low = 0;
+		int high = accounts.size() - 1;
+		int mid = -1;
+		while (low < high) { 
+			mid = (low + high) / 2;
+			if (accounts.get(mid).getHolder().getName() == holderName) {
+				return accounts.get(mid).getAccountNumber();
+				
+			} else if (accounts.get(mid).getHolder().getName().compareTo(holderName) < 0) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
 		
+		BankAccount newAccount = new BankAccount(holderName, idNr);
+		accounts.add(high, newAccount);
+		
+		return newAccount.getAccountNumber();
 	}
 	
 	/**
@@ -20,7 +37,13 @@ public class Bank {
 	* eller null om ingen s�dan finns.
 	*/
 	public Customer findHolder(long idNr){
+		for (BankAccount account : accounts){
+			if(account.getHolder().getIdNr() == idNr){
+				return account.getHolder();
+			}
+		}
 		
+		return null;
 	}
 	
 	/**
@@ -28,7 +51,12 @@ public class Bank {
 	* kontot fanns (och kunde tas bort), annars false.
 	*/
 	public boolean removeAccount(int number){
-		
+		BankAccount account = findByNumber(number);
+		if(account == null){return false;}
+		else{
+			accounts.remove(account);
+			return true;
+		}
 	}
 	
 	/**
@@ -36,7 +64,7 @@ public class Bank {
 	* Listan �r sorterad p� kontoinnehavarnas namn.
 	*/
 	public ArrayList<BankAccount> getAllAccounts(){
-		
+		return accounts;
 	}
 	
 	/**
@@ -44,19 +72,13 @@ public class Bank {
 	* Returnerar null om inget s�dant konto finns.
 	*/
 	public BankAccount findByNumber(int accountNumber){
-		int low = 0;
-		int high = n - 1;
-		int mid = -1;
-		while (low <= high) { //Var <
-			mid = (low + high) / 2;
-			if (users[mid].getCardNbr() == cardNbr) {
-				return users[mid];
-			} else if (users[mid].getCardNbr() < cardNbr) {
-				low = mid + 1;
-			} else {
-				high = mid - 1;
+		for (BankAccount account : accounts){
+			if(account.getAccountNumber() == accountNumber){
+				return account;
 			}
 		}
+		
+		return null;
 	}
 	
 	/**
@@ -64,7 +86,15 @@ public class Bank {
 	* Kontona returneras i en lista. Kunderna antas ha unika id-nummer.
 	*/
 	public ArrayList<BankAccount> findAccountsForHolder(long idNr){
+		ArrayList<BankAccount> holderAccounts = new ArrayList<BankAccount>();
 		
+		for (BankAccount account : accounts){
+			if(account.getHolder().getIdNr() == idNr){
+				holderAccounts.add(account);
+			}
+		}
+		
+		return holderAccounts;
 	}
 	/**
 	* S�ker upp kunder utifr�n en s�kning p� namn eller del av namn. Alla
@@ -74,6 +104,14 @@ public class Bank {
 	* s�ga g�r ingen skillnad p� stora och sm� bokst�ver.
 	*/
 	public ArrayList<Customer> findByPartofName(String namePart){
+		ArrayList<Customer> customers = new ArrayList<Customer>();
 		
+		for (BankAccount account : accounts){
+			if(account.getHolder().getName().contains(namePart)){
+				customers.add(account.getHolder());
+			}
+		}
+		
+		return customers;
 	}
 }

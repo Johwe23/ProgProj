@@ -12,7 +12,7 @@ public class BankAccount {
 	* inledningsvis 0 kr.
 	*/
 	public BankAccount(String holderName, long holderId) {
-		
+		this(new Customer(holderName, holderId));
 	}
 	
 	/**

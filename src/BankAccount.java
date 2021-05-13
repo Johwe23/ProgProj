@@ -31,7 +31,7 @@ public class BankAccount {
 	
 	/** Tar reda på det kontonummer som identifierar detta konto. */
 	public int getAccountNumber() {
-		return accountCounter;
+		return accountNumber;
 	}
 	
 	/** Tar reda på hur mycket pengar som finns på kontot. */

@@ -14,7 +14,8 @@ public class BankApplication {
 	}
 	
 	public void runApplication() {
-		while(true) {
+		boolean running = true;
+		while(running) {
 			System.out.println("-------------------------------------------------------");
 			System.out.println("1: Find account(s) from the ID-number of the customer");
 			System.out.println("2: Search for customer from (part of) name");
@@ -49,6 +50,19 @@ public class BankApplication {
 				case 2: 
 					findCustomerFromPartOfName();
 					break;
+					
+				case 6:
+					createAccount();
+					break;
+				case 7:
+					removeAccount();
+					break;
+				case 8: 
+					printAllAccounts();
+					break;
+				case 9:
+					running = false;
+					break;
 				default:
 					break;
 			}
@@ -81,6 +95,28 @@ public class BankApplication {
 		} while (!validAccNbr);
 		
 		
+	}
+	
+	private void createAccount(){
+		System.out.println("Name: ");
+		String name = waitForString();
+		System.out.println("ID: ");
+		Long id = waitForLong();
+		int nbr = bank.addAccount(name, id);
+		System.out.println("Account created: " + nbr);
+	}
+	
+	private void removeAccount(){
+		System.out.println("Account Number: ");
+		int id = waitForInt();
+		bank.removeAccount(id);
+	}
+	
+	private void printAllAccounts(){
+		ArrayList<BankAccount> accounts = bank.getAllAccounts();
+		for (BankAccount account : accounts){
+			System.out.println(account);
+		}
 	}
 	
 	private void findCustomerFromPartOfName(){

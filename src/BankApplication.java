@@ -28,7 +28,8 @@ public class BankApplication {
 			//System.out.println("");
 			System.out.println("");
 			int choice=-1;
-			do {
+
+			while(!(0<choice && choice<10)) {
 				System.out.print("Input choice of action: ");
 				choice=waitForInt();
 
@@ -39,7 +40,7 @@ public class BankApplication {
 					System.out.println("");
 				}
 				
-			} while(true);
+			}
 			
 			switch (choice) {
 				case 1: 
@@ -60,8 +61,29 @@ public class BankApplication {
 		long ID=-1;
 		do {
 			System.out.print("Please enter a valid ID number: ");
-			
-		} while (true);
+			ID=waitForLong();
+		} while (ID<0);
+		
+		for (BankAccount account : bank.findAccountsForHolder(ID)) {
+			System.out.println(account.toString());
+		}
+	}
+	
+	private void findCustomerFromPartOfName(){
+		System.out.println("Search for: ");
+	}
+	
+	private void depositInAccount() {
+		System.out.println("");
+		int accNbr=-1;
+		boolean validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number: ");
+				accNbr=waitForInt();
+			} while (BankAccount.accountCounter<accNbr || accNbr<0);
+		} while (!validAccNbr);
+		
 		
 	}
 	
@@ -78,6 +100,7 @@ public class BankApplication {
 		while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
 			String disposal=scanner.nextLine();
+			System.out.println("Error, invalid option.");
 		}
 	}
 	
@@ -85,6 +108,7 @@ public class BankApplication {
 		while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
 			String disposal=scanner.nextLine();
+			System.out.println("Error, invalid option.");
 		}
 	}
 	

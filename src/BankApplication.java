@@ -52,14 +52,25 @@ public class BankApplication {
 	
 	private void findAccountByUserId() {
 		System.out.println("");
-		System.out.println("");
+		long ID=-1;
+		do {
+			System.out.print("Please enter a valid ID number: ");
+			
+		} while (true);
+		
 	}
 	
 	private int waitForInt() {
 		while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
 			String disposal=scanner.nextLine();
-			
+		}
+	}
+	
+	private long waitForLong() {
+		while(true) {
+			if(scanner.hasNextLong()) return scanner.nextLong();
+			String disposal=scanner.nextLine();
 		}
 	}
 

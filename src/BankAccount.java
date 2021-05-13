@@ -54,7 +54,11 @@ public class BankAccount {
 	
 	/** Returnerar en strängrepresentation av bankkontot. */
 	public String toString() {
+<<<<<<< Updated upstream
 		return null;
+=======
+		return "Account: " + accountNumber + " (" + holder + ")" + ": " + balance;
+>>>>>>> Stashed changes
 	}
 	
 

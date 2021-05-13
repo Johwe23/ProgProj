@@ -49,6 +49,28 @@ public class BankApplication {
 				case 2: 
 					findCustomerFromPartOfName();
 					break;
+<<<<<<< Updated upstream
+=======
+				case 3:
+					depositInAccount();
+					break;
+				case 4:
+					withdrawFromAccount();
+					break;
+					
+				case 6:
+					createAccount();
+					break;
+				case 7:
+					removeAccount();
+					break;
+				case 8: 
+					printAllAccounts();
+					break;
+				case 9:
+					running = false;
+					break;
+>>>>>>> Stashed changes
 				default:
 					break;
 			}

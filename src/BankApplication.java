@@ -92,9 +92,51 @@ public class BankApplication {
 				System.out.print("Please enter a valid account number: ");
 				accNbr=waitForInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbr) validAccNbr=true;
+			}
 		} while (!validAccNbr);
 		
+		double deposit=-1;
+		do {
+			System.out.println("Please enter a valid amount to deposit: ");
+			deposit=waitForDouble();
+		} while (deposit<0);
 		
+		bank.findByNumber(accNbr).deposit(deposit);
+		System.out.println(bank.findByNumber(accNbr));
+	}
+	
+	private void withdrawFromAccount() {
+		System.out.println("");
+		int accNbr=-1;
+		boolean validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number: ");
+				accNbr=waitForInt();
+			} while (BankAccount.accountCounter<accNbr || accNbr<0);
+			
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbr) validAccNbr=true;
+			}
+		} while (!validAccNbr);
+		
+		double withdrawal=-1;
+		do {
+			do {
+				System.out.println("Please enter a valid amount to withdraw: ");
+				withdrawal=waitForDouble();
+			} while (withdrawal<0);
+			
+			if(bank.findByNumber(accNbr).getAmount()<withdrawal) {
+				System.out.println("Error, amount withdrawn greater than account balance.");
+			}
+		} while (bank.findByNumber(accNbr).getAmount()<withdrawal);
+		
+		
+		bank.findByNumber(accNbr).deposit(withdrawal);
+		System.out.println(bank.findByNumber(accNbr));
 	}
 	
 	private void createAccount(){
@@ -139,6 +181,13 @@ public class BankApplication {
 	private long waitForLong() {
 		while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
+			String disposal=scanner.nextLine();
+			System.out.println("Error, invalid option.");
+		}
+	}
+	private double waitForDouble() {
+		while(true) {
+			if(scanner.hasNextDouble()) return scanner.nextDouble();
 			String disposal=scanner.nextLine();
 			System.out.println("Error, invalid option.");
 		}

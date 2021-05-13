@@ -69,10 +69,6 @@ public class BankApplication {
 		}
 	}
 	
-	private void findCustomerFromPartOfName(){
-		System.out.println("Search for: ");
-	}
-	
 	private void depositInAccount() {
 		System.out.println("");
 		int accNbr=-1;

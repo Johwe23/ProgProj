@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankApplication {
@@ -14,6 +15,7 @@ public class BankApplication {
 	
 	public void runApplication() {
 		while(true) {
+			System.out.println("-------------------------------------------------------");
 			System.out.println("1: Find account(s) from the ID-number of the customer");
 			System.out.println("2: Search for customer from (part of) name");
 			System.out.println("3: Deposit.");
@@ -43,6 +45,9 @@ public class BankApplication {
 				case 1: 
 					findAccountByUserId();
 					break;
+				case 2: 
+					findCustomerFromPartOfName();
+					break;
 				default:
 					break;
 			}
@@ -62,6 +67,11 @@ public class BankApplication {
 	
 	private void findCustomerFromPartOfName(){
 		System.out.println("Search for: ");
+		String input = waitForString();
+		ArrayList<Customer> customers = bank.findByPartofName(input);
+		for (Customer cust : customers){
+			System.out.println(cust);
+		}
 	}
 	
 	private int waitForInt() {

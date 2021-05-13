@@ -2,7 +2,7 @@
 public class BankAccount {
 	private Customer holder;
 	private int accountNumber;
-	private int balance=0;
+	private double balance=0;
 	
 	static int accountCounter=0;
 	

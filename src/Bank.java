@@ -44,7 +44,19 @@ public class Bank {
 	* Returnerar null om inget s�dant konto finns.
 	*/
 	public BankAccount findByNumber(int accountNumber){
-		
+		int low = 0;
+		int high = n - 1;
+		int mid = -1;
+		while (low <= high) { //Var <
+			mid = (low + high) / 2;
+			if (users[mid].getCardNbr() == cardNbr) {
+				return users[mid];
+			} else if (users[mid].getCardNbr() < cardNbr) {
+				low = mid + 1;
+			} else {
+				high = mid - 1;
+			}
+		}
 	}
 	
 	/**

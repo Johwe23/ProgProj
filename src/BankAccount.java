@@ -55,6 +55,7 @@ public class BankAccount {
 	/** Returnerar en strängrepresentation av bankkontot. */
 	public String toString() {
 		return "Account: " + accountNumber + " (" + holder + ")" + ": " + balance;
+
 	}
 	
 

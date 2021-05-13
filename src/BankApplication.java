@@ -50,7 +50,12 @@ public class BankApplication {
 				case 2: 
 					findCustomerFromPartOfName();
 					break;
-					
+				case 3:
+					depositInAccount();
+					break;
+				case 4:
+					withdrawFromAccount();
+					break;	
 				case 6:
 					createAccount();
 					break;

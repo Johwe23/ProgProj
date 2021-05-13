@@ -13,7 +13,7 @@ public class BankAccount {
 	*/
 	public BankAccount(String holderName, long holderId) {
 		this(new Customer(holderName, holderId));
-		accountNumber=accountCounter++;
+		
 	}
 	
 	/**
@@ -22,7 +22,7 @@ public class BankAccount {
 	*/
 	public BankAccount(Customer holder) {
 		this.holder=holder;
-		
+		accountNumber=accountCounter++;
 	}
 	
 	/** Tar reda på kontots innehavare. */

@@ -32,7 +32,7 @@ public class BankApplication {
 
 			while(!(0<choice && choice<10)) {
 				System.out.print("Input choice of action: ");
-				choice=waitForInt();
+				choice=expectInt();
 
 				if(0<choice && choice<10) {
 					break;
@@ -83,7 +83,7 @@ public class BankApplication {
 		long ID=-1;
 		do {
 			System.out.print("Please enter a valid ID number: ");
-			ID=waitForLong();
+			ID=expectLong();
 		} while (ID<0);
 		
 		for (BankAccount account : bank.findAccountsForHolder(ID)) {
@@ -93,7 +93,7 @@ public class BankApplication {
 	
 	private void findCustomerFromPartOfName(){ //Alt 2
 		System.out.println("Search for: ");
-		String input = waitForString();
+		String input = expectString();
 		ArrayList<Customer> customers = bank.findByPartofName(input);
 		for (Customer cust : customers){
 			System.out.println(cust);
@@ -107,7 +107,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number: ");
-				accNbr=waitForInt();
+				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
 			for (BankAccount account : bank.accounts) {
@@ -118,7 +118,7 @@ public class BankApplication {
 		double deposit=-1;
 		do {
 			System.out.print("Please enter a valid amount to deposit: ");
-			deposit=waitForDouble();
+			deposit=expectDouble();
 		} while (deposit<0);
 		
 		bank.findByNumber(accNbr).deposit(deposit);
@@ -132,7 +132,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number: ");
-				accNbr=waitForInt();
+				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
 			for (BankAccount account : bank.accounts) {
@@ -144,7 +144,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid amount to withdraw: ");
-				withdrawal=waitForDouble();
+				withdrawal=expectDouble();
 			} while (withdrawal<0);
 			
 			if(bank.findByNumber(accNbr).getAmount()<withdrawal) {
@@ -164,7 +164,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number to be the benefactor: ");
-				accNbrBen=waitForInt();
+				accNbrBen=expectInt();
 			} while (BankAccount.accountCounter<accNbrBen || accNbrBen<0);
 			
 			for (BankAccount account : bank.accounts) {
@@ -177,7 +177,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number to be the recipient: ");
-				accNbrRec=waitForInt();
+				accNbrRec=expectInt();
 			} while ((BankAccount.accountCounter<accNbrRec || accNbrRec<0) && accNbrRec==accNbrBen);
 			
 			for (BankAccount account : bank.accounts) {
@@ -189,7 +189,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid amount to withdraw: ");
-				transfer=waitForDouble();
+				transfer=expectDouble();
 			} while (transfer<0);
 			
 			if(bank.findByNumber(accNbrBen).getAmount()<transfer) {
@@ -206,17 +206,25 @@ public class BankApplication {
 	}
 	
 	private void createAccount(){ //Alt 6
-		System.out.print("Name: ");
-		String name = waitForString();
-		System.out.print("ID: ");
-		Long id = waitForLong();
+		String name = null;
+		do {
+			System.out.print("Name: ");
+			name = expectString();
+		} while (name==null || name=="");
+		
+		Long id=-1L;
+		do {
+			System.out.print("ID: ");
+			id = expectLong();
+		} while (id==-1);
+		
 		int nbr = bank.addAccount(name, id);
 		System.out.println("Account created: " + nbr);
 	}
 	
 	private void removeAccount(){ //Alt 7
 		System.out.print("Account Number: ");
-		int id = waitForInt();
+		int id = expectInt();
 		bank.removeAccount(id);
 	}
 	
@@ -227,7 +235,7 @@ public class BankApplication {
 		}
 	}
 	
-	private int waitForInt() {
+	private int expectInt() {
 		//while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
 			String disposal=scanner.next();
@@ -236,7 +244,7 @@ public class BankApplication {
 			return -1;
 	}
 	
-	private long waitForLong() {
+	private long expectLong() {
 		//while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
 			String disposal=scanner.next();
@@ -244,7 +252,8 @@ public class BankApplication {
 		//}
 			return -1;
 	}
-	private double waitForDouble() {
+	
+	private double expectDouble() {
 		//while(true) {
 			try {
 				if(scanner.hasNext()) return Double.parseDouble(scanner.next());
@@ -256,13 +265,11 @@ public class BankApplication {
 			return -1;
 	}
 	
-	private String waitForString() {
+	private String expectString() {
 		//while(true) {
-			if(scanner.hasNext()) return scanner.next();
-			String disposal=scanner.nextLine();
-			System.out.println("Error, invalid option.");
+		scanner.nextLine();
+		return scanner.nextLine();
 		//}
-			return null;
 	}
 
 }

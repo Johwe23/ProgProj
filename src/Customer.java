@@ -1,5 +1,5 @@
 
-public class Costumer {
+public class Customer {
 	
 	private static int costNrCount = 0;
 	String name;
@@ -8,28 +8,28 @@ public class Costumer {
 	
 	/**
 	* Skapar en kund (kontoinnehavare) med namnet 'name' och id-nummer 'idNr'.
-	* Kunden tilldelas också ett unikt kundnummer.
+	* Kunden tilldelas ocksï¿½ ett unikt kundnummer.
 	*/
-	public Costumer(String name, long idNr){
+	public Customer(String name, long idNr){
 		this.name = name;
 		id = idNr;
 		
 		costumerNr = costNrCount;
 		costNrCount++;
 	}
-	/** Tar reda på kundens namn. */
+	/** Tar reda pï¿½ kundens namn. */
 	String getName(){
 		return name;
 	}
-	/** Tar reda på kundens personnummer. */
+	/** Tar reda pï¿½ kundens personnummer. */
 	long getIdNr(){
 		return id;
 	}
-	/** Tar reda på kundens kundnummer. */
+	/** Tar reda pï¿½ kundens kundnummer. */
 	int getCustomerNr(){
 		return costumerNr;
 	}
-	/** Returnerar en strängbeskrivning av kunden. */
+	/** Returnerar en strï¿½ngbeskrivning av kunden. */
 	public String toString(){
 		return name;
 	}

@@ -123,7 +123,8 @@ public class Bank {
 		ArrayList<Customer> customers = new ArrayList<Customer>();
 
 		for (BankAccount account : accounts){
-			if(account.getHolder().getName().contains(namePart)){
+			String name = account.getHolder().getName().toLowerCase();
+			if(name.contains(namePart.toLowerCase())){
 				customers.add(account.getHolder());
 			}
 		}

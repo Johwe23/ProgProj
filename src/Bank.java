@@ -6,59 +6,62 @@ public class Bank {
 	
 	/** Skapar en ny bank utan konton. */
 	/**
-	* Öppna ett nytt konto i banken. Om det redan finns en kontoinnehavare
-	* med de givna uppgifterna ska inte en ny Customer skapas, utan istället
-	* den befintliga användas. Det nya kontonumret returneras.
+	* ï¿½ppna ett nytt konto i banken. Om det redan finns en kontoinnehavare
+	* med de givna uppgifterna ska inte en ny Customer skapas, utan istï¿½llet
+	* den befintliga anvï¿½ndas. Det nya kontonumret returneras.
 	*/
-	int addAccount(String holderName, long idNr){
-		
-		
+	public int addAccount(String holderName, long idNr){
 		accounts.add(new BankAccount(holderName, idNr));
 		
 	}
+	
 	/**
 	* Returnerar den kontoinnehavaren som har det givna id-numret,
-	* eller null om ingen sådan finns.
+	* eller null om ingen sï¿½dan finns.
 	*/
-	Customer findHolder(long idNr){
+	public Customer findHolder(long idNr){
 		
 	}
+	
 	/**
-	* Tar bort konto med nummer 'number' från banken. Returnerar true om
+	* Tar bort konto med nummer 'number' frï¿½n banken. Returnerar true om
 	* kontot fanns (och kunde tas bort), annars false.
 	*/
-	boolean removeAccount(int number){
+	public boolean removeAccount(int number){
 		
 	}
+	
 	/**
-	* Returnerar en lista innehållande samtliga bankkonton i banken.
-	* Listan är sorterad på kontoinnehavarnas namn.
+	* Returnerar en lista innehï¿½llande samtliga bankkonton i banken.
+	* Listan ï¿½r sorterad pï¿½ kontoinnehavarnas namn.
 	*/
-	ArrayList<BankAccount> getAllAccounts(){
+	public ArrayList<BankAccount> getAllAccounts(){
 		
 	}
+	
 	/**
-	* Söker upp och returnerar bankkontot med kontonummer 'accountNumber'.
-	* Returnerar null om inget sådant konto finns.
+	* Sï¿½ker upp och returnerar bankkontot med kontonummer 'accountNumber'.
+	* Returnerar null om inget sï¿½dant konto finns.
 	*/
-	BankAccount findByNumber(int accountNumber){
+	public BankAccount findByNumber(int accountNumber){
 		
 	}
+	
 	/**
-	* Söker upp alla bankkonton som innehas av kunden med id-nummer 'idNr'.
+	* Sï¿½ker upp alla bankkonton som innehas av kunden med id-nummer 'idNr'.
 	* Kontona returneras i en lista. Kunderna antas ha unika id-nummer.
 	*/
-	ArrayList<BankAccount> findAccountsForHolder(long idNr){
+	public ArrayList<BankAccount> findAccountsForHolder(long idNr){
 		
 	}
 	/**
-	* Söker upp kunder utifrån en sökning på namn eller del av namn. Alla
-	* personer vars namn innehåller strängen 'namePart' inkluderas i
-	* resultatet, som returneras som en lista. Samma person kan förekomma
-	* flera gånger i resultatet. Sökningen är "case insensitive", det vill
-	* säga gör ingen skillnad på stora och små bokstäver.
+	* Sï¿½ker upp kunder utifrï¿½n en sï¿½kning pï¿½ namn eller del av namn. Alla
+	* personer vars namn innehï¿½ller strï¿½ngen 'namePart' inkluderas i
+	* resultatet, som returneras som en lista. Samma person kan fï¿½rekomma
+	* flera gï¿½nger i resultatet. Sï¿½kningen ï¿½r "case insensitive", det vill
+	* sï¿½ga gï¿½r ingen skillnad pï¿½ stora och smï¿½ bokstï¿½ver.
 	*/
-	ArrayList<Customer> findByPartofName(String namePart){
+	public ArrayList<Customer> findByPartofName(String namePart){
 		
 	}
 }

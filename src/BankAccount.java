@@ -20,7 +20,7 @@ public class BankAccount {
 	* ett unikt kontonummer och innehåller inledningsvis 0 kr.
 	*/
 	public BankAccount(Customer holder) {
-		this.holder=holder ;
+		this.holder=holder;
 		accountNumber=accountCounter++;
 	}
 	

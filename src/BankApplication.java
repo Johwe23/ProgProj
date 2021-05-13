@@ -142,7 +142,7 @@ public class BankApplication {
 		} while (bank.findByNumber(accNbr).getAmount()<withdrawal);
 		
 		
-		bank.findByNumber(accNbr).deposit(withdrawal);
+		bank.findByNumber(accNbr).withdraw(withdrawal);
 		System.out.println(bank.findByNumber(accNbr));
 	}
 	

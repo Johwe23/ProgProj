@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class BankApplication {
@@ -14,15 +15,16 @@ public class BankApplication {
 	
 	public void runApplication() {
 		while(true) {
-			System.out.println("1: Hitta konto(n) utifrån innehavares ID-nummer.");
-			System.out.println("2: Sök kontoinnehavare från (del av) namn.");
-			System.out.println("3: Sätt in.");
-			System.out.println("4: Ta ut.");
-			System.out.println("5: Överför mellan konton.");
-			System.out.println("6: Skapa konto.");
-			System.out.println("7: Radera konto");
-			System.out.println("8: Skriv ut samtliga konton (sorterade efter innehavarens namn).");
-			System.out.println("9: Avsluta.");
+			System.out.println("-------------------------------------------------------");
+			System.out.println("1: Find account(s) from the ID-number of the customer");
+			System.out.println("2: Search for customer from (part of) name");
+			System.out.println("3: Deposit.");
+			System.out.println("4: Withrawal.");
+			System.out.println("5: Transfer between accounts.");
+			System.out.println("6: Create account.");
+			System.out.println("7: Delete account.");
+			System.out.println("8: Print all accounts (Sorted by customer name).");
+			System.out.println("9: Exit.");
 			//System.out.println("");
 			System.out.println("");
 			int choice=-1;
@@ -31,7 +33,9 @@ public class BankApplication {
 				System.out.print("Input choice of action: ");
 				choice=waitForInt();
 
-				if(!(0<choice && choice<10)) {
+				if(0<choice && choice<10) {
+					break;
+				} else {
 					System.out.println("Please input one of the alternatives.");
 					System.out.println("");
 				}
@@ -42,9 +46,8 @@ public class BankApplication {
 				case 1: 
 					findAccountByUserId();
 					break;
-					
-				case 3:
-					
+				case 2: 
+					findCustomerFromPartOfName();
 					break;
 				default:
 					break;
@@ -84,6 +87,15 @@ public class BankApplication {
 		
 	}
 	
+	private void findCustomerFromPartOfName(){
+		System.out.println("Search for: ");
+		String input = waitForString();
+		ArrayList<Customer> customers = bank.findByPartofName(input);
+		for (Customer cust : customers){
+			System.out.println(cust);
+		}
+	}
+	
 	private int waitForInt() {
 		while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
@@ -97,6 +109,13 @@ public class BankApplication {
 			if(scanner.hasNextLong()) return scanner.nextLong();
 			String disposal=scanner.nextLine();
 			System.out.println("Error, invalid option.");
+		}
+	}
+	
+	private String waitForString() {
+		while(true) {
+			if(scanner.hasNext()) return scanner.nextLine();
+			String disposal=scanner.nextLine();
 		}
 	}
 

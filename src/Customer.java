@@ -1,10 +1,10 @@
 
 public class Customer {
 	
-	private static int costNrCount = 0;
+	private static int custNrCount = 0;
 	String name;
 	long id;
-	int costumerNr;
+	int customerNr;
 	
 	/**
 	* Skapar en kund (kontoinnehavare) med namnet 'name' och id-nummer 'idNr'.
@@ -14,8 +14,8 @@ public class Customer {
 		this.name = name;
 		id = idNr;
 		
-		costumerNr = costNrCount;
-		costNrCount++;
+		customerNr = custNrCount;
+		custNrCount++;
 	}
 	/** Tar reda p� kundens namn. */
 	String getName(){
@@ -27,10 +27,10 @@ public class Customer {
 	}
 	/** Tar reda p� kundens kundnummer. */
 	int getCustomerNr(){
-		return costumerNr;
+		return customerNr;
 	}
 	/** Returnerar en str�ngbeskrivning av kunden. */
 	public String toString(){
-		return name;
+		return name + ", " + "id " + id + ", " + "customer nr: " + customerNr;
 	}
 }

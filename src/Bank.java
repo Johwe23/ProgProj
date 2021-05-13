@@ -5,6 +5,19 @@ public class Bank {
 	ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
 	
 	/** Skapar en ny bank utan konton. */
+	
+	public Bank(){
+		addAccount("Daniel", 123);
+		addAccount("Johan", 321);
+		addAccount("Abraham", 456);
+		addAccount("Klara", 453);
+		addAccount("Torsten", 2578);
+		addAccount("Sebastian", 976);
+		addAccount("Gustav", 4567);
+		addAccount("Agnes", 3467);
+		addAccount("Lotta", 5463);
+		
+	}
 	/**
 	* �ppna ett nytt konto i banken. Om det redan finns en kontoinnehavare
 	* med de givna uppgifterna ska inte en ny Customer skapas, utan ist�llet
@@ -17,7 +30,9 @@ public class Bank {
 		while (low < high) { 
 			mid = (low + high) / 2;
 			if (accounts.get(mid).getHolder().getName() == holderName) {
-				return accounts.get(mid).getAccountNumber();
+				BankAccount newAccount = new BankAccount(accounts.get(mid).getHolder());
+				accounts.add(mid, newAccount);
+				return newAccount.getAccountNumber();
 				
 			} else if (accounts.get(mid).getHolder().getName().compareTo(holderName) < 0) {
 				low = mid + 1;

@@ -60,6 +60,10 @@ public class BankApplication {
 		
 	}
 	
+	private void findCustomerFromPartOfName(){
+		System.out.println("Search for: ");
+	}
+	
 	private int waitForInt() {
 		while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
@@ -70,6 +74,13 @@ public class BankApplication {
 	private long waitForLong() {
 		while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
+			String disposal=scanner.nextLine();
+		}
+	}
+	
+	private String waitForString() {
+		while(true) {
+			if(scanner.hasNext()) return scanner.nextLine();
 			String disposal=scanner.nextLine();
 		}
 	}

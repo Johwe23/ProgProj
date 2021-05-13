@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BankApplication {
@@ -75,7 +76,7 @@ public class BankApplication {
 		}
 	}
 	
-	private void findAccountByUserId() {
+	private void findAccountByUserId() { //Alt 1
 		System.out.println("");
 		long ID=-1;
 		do {
@@ -88,7 +89,7 @@ public class BankApplication {
 		}
 	}
 	
-	private void depositInAccount() {
+	private void depositInAccount() { //Alt 3
 		System.out.println("");
 		int accNbr=-1;
 		boolean validAccNbr=false;
@@ -97,6 +98,7 @@ public class BankApplication {
 				System.out.print("Please enter a valid account number: ");
 				accNbr=waitForInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
+			
 			for (BankAccount account : bank.accounts) {
 				if(account.getAccountNumber()==accNbr) validAccNbr=true;
 			}
@@ -104,7 +106,7 @@ public class BankApplication {
 		
 		double deposit=-1;
 		do {
-			System.out.println("Please enter a valid amount to deposit: ");
+			System.out.print("Please enter a valid amount to deposit: ");
 			deposit=waitForDouble();
 		} while (deposit<0);
 		
@@ -112,7 +114,7 @@ public class BankApplication {
 		System.out.println(bank.findByNumber(accNbr));
 	}
 	
-	private void withdrawFromAccount() {
+	private void withdrawFromAccount() { //Alt 4
 		System.out.println("");
 		int accNbr=-1;
 		boolean validAccNbr=false;
@@ -130,7 +132,7 @@ public class BankApplication {
 		double withdrawal=-1;
 		do {
 			do {
-				System.out.println("Please enter a valid amount to withdraw: ");
+				System.out.print("Please enter a valid amount to withdraw: ");
 				withdrawal=waitForDouble();
 			} while (withdrawal<0);
 			
@@ -144,7 +146,7 @@ public class BankApplication {
 		System.out.println(bank.findByNumber(accNbr));
 	}
 	
-	private void createAccount(){
+	private void createAccount(){ //Alt 6
 		System.out.println("Name: ");
 		String name = waitForString();
 		System.out.println("ID: ");
@@ -153,20 +155,20 @@ public class BankApplication {
 		System.out.println("Account created: " + nbr);
 	}
 	
-	private void removeAccount(){
+	private void removeAccount(){ //Alt 7
 		System.out.println("Account Number: ");
 		int id = waitForInt();
 		bank.removeAccount(id);
 	}
 	
-	private void printAllAccounts(){
+	private void printAllAccounts(){ //Alt 8
 		ArrayList<BankAccount> accounts = bank.getAllAccounts();
 		for (BankAccount account : accounts){
 			System.out.println(account);
 		}
 	}
 	
-	private void findCustomerFromPartOfName(){
+	private void findCustomerFromPartOfName(){ //Alt 2
 		System.out.println("Search for: ");
 		String input = waitForString();
 		ArrayList<Customer> customers = bank.findByPartofName(input);
@@ -178,7 +180,7 @@ public class BankApplication {
 	private int waitForInt() {
 		while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
-			String disposal=scanner.nextLine();
+			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
 		}
 	}
@@ -186,22 +188,25 @@ public class BankApplication {
 	private long waitForLong() {
 		while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
-			String disposal=scanner.nextLine();
+			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
 		}
 	}
 	private double waitForDouble() {
 		while(true) {
-			if(scanner.hasNextDouble()) return scanner.nextDouble();
-			String disposal=scanner.nextLine();
-			System.out.println("Error, invalid option.");
+			try {
+				if(scanner.hasNext()) return Double.parseDouble(scanner.next());
+			} catch (NumberFormatException e) {
+				//String disposal=scanner.next();
+				System.out.println("Error, invalid option.");
+			}
 		}
 	}
 	
 	private String waitForString() {
 		while(true) {
 			if(scanner.hasNext()) return scanner.nextLine();
-			String disposal=scanner.nextLine();
+			String disposal=scanner.next();
 		}
 	}
 

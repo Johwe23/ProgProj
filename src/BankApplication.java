@@ -200,8 +200,9 @@ public class BankApplication {
 	
 	private String waitForString() {
 		while(true) {
-			if(scanner.hasNext()) return scanner.nextLine();
+			if(scanner.hasNext()) return scanner.next();
 			String disposal=scanner.nextLine();
+			System.out.println("Error, invalid option.");
 		}
 	}
 

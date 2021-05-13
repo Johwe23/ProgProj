@@ -42,7 +42,9 @@ public class Bank {
 		}
 
 		BankAccount newAccount = new BankAccount(holderName, idNr);
-		accounts.add(high+1, newAccount);
+
+		accounts.add(high + 1, newAccount);
+		
 		return newAccount.getAccountNumber();
 	}
 

@@ -88,7 +88,7 @@ public class BankApplication {
 		
 		ArrayList<BankAccount> accounts = bank.findAccountsForHolder(ID);
 		if(accounts.isEmpty()){
-			System.out.println("No accounts found");
+			System.out.println("No accounts found.");
 			return;
 		}
 		for (BankAccount account : accounts) {
@@ -97,11 +97,11 @@ public class BankApplication {
 	}
 	
 	private void findCustomerFromPartOfName(){ //Alt 2
-		System.out.println("Search for: ");
+		System.out.print("Search for: ");
 		String input = expectString();
 		ArrayList<Customer> customers = bank.findByPartofName(input);
 		if(customers.isEmpty()){
-			System.out.println("No accounts found");
+			System.out.println("No accounts found.");
 		}
 		for (Customer cust : customers){
 			System.out.println(cust);
@@ -234,10 +234,10 @@ public class BankApplication {
 		System.out.print("Account Number: ");
 		int id = expectInt();
 		if(bank.removeAccount(id)){
-			System.out.println("Account successfully removed");
+			System.out.println("Account successfully removed.");
 		}
 		else{
-			System.out.println("No such account exists, please try another account number");
+			System.out.println("No such account exists, please try another account number.");
 		}
 	}
 	

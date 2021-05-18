@@ -86,7 +86,12 @@ public class BankApplication {
 			ID=expectLong();
 		} while (ID<0);
 		
-		for (BankAccount account : bank.findAccountsForHolder(ID)) {
+		ArrayList<BankAccount> accounts = bank.findAccountsForHolder(ID);
+		if(accounts.isEmpty()){
+			System.out.println("No accounts found");
+			return;
+		}
+		for (BankAccount account : accounts) {
 			System.out.println(account.toString());
 		}
 	}
@@ -95,6 +100,9 @@ public class BankApplication {
 		System.out.println("Search for: ");
 		String input = expectString();
 		ArrayList<Customer> customers = bank.findByPartofName(input);
+		if(customers.isEmpty()){
+			System.out.println("No accounts found");
+		}
 		for (Customer cust : customers){
 			System.out.println(cust);
 		}
@@ -225,7 +233,12 @@ public class BankApplication {
 	private void removeAccount(){ //Alt 7
 		System.out.print("Account Number: ");
 		int id = expectInt();
-		bank.removeAccount(id);
+		if(bank.removeAccount(id)){
+			System.out.println("Account successfully removed");
+		}
+		else{
+			System.out.println("No such account exists, please try another account number");
+		}
 	}
 	
 	private void printAllAccounts(){ //Alt 8

@@ -135,18 +135,6 @@ public class Bank {
 			}
 		}
 
-<<<<<<< Updated upstream
-		for (BankAccount account : accounts){
-			if(account.getHolder().getName().contains(namePart)){
-=======
-		/*for (BankAccount account : accounts){
-			String name = account.getHolder().getName().toLowerCase();
-			if(name.contains(namePart.toLowerCase())){
->>>>>>> Stashed changes
-				customers.add(account.getHolder());
-			}
-		}*/
-
 		return customers;
 	}
 }

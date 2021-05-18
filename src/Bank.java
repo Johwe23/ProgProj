@@ -121,11 +121,17 @@ public class Bank {
 	*/
 	public ArrayList<Customer> findByPartofName(String namePart){
 		ArrayList<Customer> customers = new ArrayList<Customer>();
-
-		for (BankAccount account : accounts){
-			String name = account.getHolder().getName().toLowerCase();
-			if(name.contains(namePart.toLowerCase())){
-				customers.add(account.getHolder());
+		
+		int index=0;
+		while(index<accounts.size()) {
+			if(accounts.get(index).getHolder().getName().toLowerCase().contains(namePart.toLowerCase())) {
+					customers.add(accounts.get(index).getHolder());
+			}
+			index++;
+			if(!customers.isEmpty()) {
+				while (index<accounts.size()-1 && accounts.get(index).getHolder()==customers.get(customers.size()-1)) {
+					index++;
+				}
 			}
 		}
 

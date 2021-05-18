@@ -107,7 +107,7 @@ public class BankApplication {
 			System.out.println(cust);
 		}
 	}
-	
+
 	private void depositInAccount() { //Alt 3
 		System.out.println("");
 		int accNbr=-1;

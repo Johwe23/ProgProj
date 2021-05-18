@@ -4,7 +4,7 @@ public class BankAccount {
 	private int accountNumber;
 	private double balance=0;
 	
-	static int accountCounter=0;
+	public static int accountCounter=0;
 	
 	/**
 	* Skapar ett nytt bankkonto åt en innehavare med namn 'holderName' och
@@ -13,6 +13,7 @@ public class BankAccount {
 	*/
 	public BankAccount(String holderName, long holderId) {
 		this(new Customer(holderName, holderId));
+		
 	}
 	
 	/**
@@ -54,7 +55,7 @@ public class BankAccount {
 	
 	/** Returnerar en strängrepresentation av bankkontot. */
 	public String toString() {
-		return "Account: " + accountNumber + " (" + holder + ")" + ": " + balance;
+		return "Account ID: " + accountNumber + " (" + holder + ")" + " Balance: " + balance+".";
 
 	}
 	

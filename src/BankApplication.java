@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BankApplication {
@@ -33,7 +32,7 @@ public class BankApplication {
 
 			while(!(0<choice && choice<10)) {
 				System.out.print("Input choice of action: ");
-				choice=waitForInt();
+				choice=expectInt();
 
 				if(0<choice && choice<10) {
 					break;
@@ -57,6 +56,9 @@ public class BankApplication {
 				case 4:
 					withdrawFromAccount();
 					break;	
+				case 5:
+					transferBetweenAmount();
+					break;
 				case 6:
 					createAccount();
 					break;
@@ -81,26 +83,31 @@ public class BankApplication {
 		long ID=-1;
 		do {
 			System.out.print("Please enter a valid ID number: ");
-			ID=waitForLong();
+			ID=expectLong();
 		} while (ID<0);
 		
-		for (BankAccount account : bank.findAccountsForHolder(ID)) {
+		ArrayList<BankAccount> accounts = bank.findAccountsForHolder(ID);
+		if(accounts.isEmpty()){
+			System.out.println("No accounts found");
+			return;
+		}
+		for (BankAccount account : accounts) {
 			System.out.println(account.toString());
 		}
 	}
 	
-<<<<<<< Updated upstream
-=======
 	private void findCustomerFromPartOfName(){ //Alt 2
-		System.out.print("Search for: ");
+		System.out.println("Search for: ");
 		String input = expectString();
 		ArrayList<Customer> customers = bank.findByPartofName(input);
+		if(customers.isEmpty()){
+			System.out.println("No accounts found");
+		}
 		for (Customer cust : customers){
 			System.out.println(cust);
 		}
 	}
-	
->>>>>>> Stashed changes
+
 	private void depositInAccount() { //Alt 3
 		System.out.println("");
 		int accNbr=-1;
@@ -108,7 +115,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number: ");
-				accNbr=waitForInt();
+				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
 			for (BankAccount account : bank.accounts) {
@@ -119,7 +126,7 @@ public class BankApplication {
 		double deposit=-1;
 		do {
 			System.out.print("Please enter a valid amount to deposit: ");
-			deposit=waitForDouble();
+			deposit=expectDouble();
 		} while (deposit<0);
 		
 		bank.findByNumber(accNbr).deposit(deposit);
@@ -133,7 +140,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid account number: ");
-				accNbr=waitForInt();
+				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
 			for (BankAccount account : bank.accounts) {
@@ -145,7 +152,7 @@ public class BankApplication {
 		do {
 			do {
 				System.out.print("Please enter a valid amount to withdraw: ");
-				withdrawal=waitForDouble();
+				withdrawal=expectDouble();
 			} while (withdrawal<0);
 			
 			if(bank.findByNumber(accNbr).getAmount()<withdrawal) {
@@ -154,23 +161,84 @@ public class BankApplication {
 		} while (bank.findByNumber(accNbr).getAmount()<withdrawal);
 		
 		
-		bank.findByNumber(accNbr).deposit(withdrawal);
+		bank.findByNumber(accNbr).withdraw(withdrawal);
 		System.out.println(bank.findByNumber(accNbr));
 	}
 	
+	private void transferBetweenAmount() { //Alt 5
+		System.out.println("");
+		int accNbrBen=-1;
+		boolean validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number to be the benefactor: ");
+				accNbrBen=expectInt();
+			} while (BankAccount.accountCounter<accNbrBen || accNbrBen<0);
+			
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbrBen) validAccNbr=true;
+			}
+		} while (!validAccNbr);
+		
+		int accNbrRec=-1;
+		validAccNbr=false;
+		do {
+			do {
+				System.out.print("Please enter a valid account number to be the recipient: ");
+				accNbrRec=expectInt();
+			} while ((BankAccount.accountCounter<accNbrRec || accNbrRec<0) && accNbrRec==accNbrBen);
+			
+			for (BankAccount account : bank.accounts) {
+				if(account.getAccountNumber()==accNbrRec) validAccNbr=true;
+			}
+		} while (!validAccNbr);
+		
+		double transfer=-1;
+		do {
+			do {
+				System.out.print("Please enter a valid amount to withdraw: ");
+				transfer=expectDouble();
+			} while (transfer<0);
+			
+			if(bank.findByNumber(accNbrBen).getAmount()<transfer) {
+				System.out.println("Error, amount withdrawn greater than account balance.");
+			}
+		} while (bank.findByNumber(accNbrBen).getAmount()<transfer);
+		
+		
+		bank.findByNumber(accNbrBen).withdraw(transfer);
+		bank.findByNumber(accNbrRec).deposit(transfer);
+		System.out.println(bank.findByNumber(accNbrBen));
+		System.out.println(bank.findByNumber(accNbrRec));
+		
+	}
+	
 	private void createAccount(){ //Alt 6
-		System.out.println("Name: ");
-		String name = waitForString();
-		System.out.println("ID: ");
-		Long id = waitForLong();
+		String name = null;
+		do {
+			System.out.print("Name: ");
+			name = expectString();
+		} while (name==null || name=="");
+		
+		Long id=-1L;
+		do {
+			System.out.print("ID: ");
+			id = expectLong();
+		} while (id==-1);
+		
 		int nbr = bank.addAccount(name, id);
 		System.out.println("Account created: " + nbr);
 	}
 	
 	private void removeAccount(){ //Alt 7
-		System.out.println("Account Number: ");
-		int id = waitForInt();
-		bank.removeAccount(id);
+		System.out.print("Account Number: ");
+		int id = expectInt();
+		if(bank.removeAccount(id)){
+			System.out.println("Account successfully removed");
+		}
+		else{
+			System.out.println("No such account exists, please try another account number");
+		}
 	}
 	
 	private void printAllAccounts(){ //Alt 8
@@ -180,47 +248,41 @@ public class BankApplication {
 		}
 	}
 	
-	private void findCustomerFromPartOfName(){ //Alt 2
-		System.out.println("Search for: ");
-		String input = waitForString();
-		ArrayList<Customer> customers = bank.findByPartofName(input);
-		for (Customer cust : customers){
-			System.out.println(cust);
-		}
-	}
-	
-	private int waitForInt() {
-		while(true) {
+	private int expectInt() {
+		//while(true) {
 			if(scanner.hasNextInt()) return scanner.nextInt();
 			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
-		}
+		//}
+			return -1;
 	}
 	
-	private long waitForLong() {
-		while(true) {
+	private long expectLong() {
+		//while(true) {
 			if(scanner.hasNextLong()) return scanner.nextLong();
 			String disposal=scanner.next();
 			System.out.println("Error, invalid option.");
-		}
+		//}
+			return -1;
 	}
-	private double waitForDouble() {
-		while(true) {
+	
+	private double expectDouble() {
+		//while(true) {
 			try {
 				if(scanner.hasNext()) return Double.parseDouble(scanner.next());
 			} catch (NumberFormatException e) {
 				//String disposal=scanner.next();
 				System.out.println("Error, invalid option.");
 			}
-		}
+		//}
+			return -1;
 	}
 	
-	private String waitForString() {
-		while(true) {
-			if(scanner.hasNext()) return scanner.next();
-			String disposal=scanner.nextLine();
-			System.out.println("Error, invalid option.");
-		}
+	private String expectString() {
+		//while(true) {
+		scanner.nextLine();
+		return scanner.nextLine();
+		//}
 	}
 
 }

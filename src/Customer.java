@@ -2,9 +2,9 @@
 public class Customer {
 	
 	private static int custNrCount = 0;
-	String name;
-	long id;
-	int customerNr;
+	private String name;
+	private long id;
+	private int customerNr;
 	
 	/**
 	* Skapar en kund (kontoinnehavare) med namnet 'name' och id-nummer 'idNr'.
@@ -31,6 +31,6 @@ public class Customer {
 	}
 	/** Returnerar en str�ngbeskrivning av kunden. */
 	public String toString(){
-		return name + ", " + "id " + id + ", " + "customer nr: " + customerNr;
+		return name + ", " + "ID " + id + ", " + "customer nr: " + customerNr;
 	}
 }

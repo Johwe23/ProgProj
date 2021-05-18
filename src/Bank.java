@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Bank {
 
-	ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
+	private ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
 
 	/** Skapar en ny bank utan konton. */
 
@@ -16,7 +16,7 @@ public class Bank {
 		addAccount("Gustav", 4567);
 		addAccount("Agnes", 3467);
 		addAccount("Lotta", 5463);
-
+		
 	}
 	/**
 	* �ppna ett nytt konto i banken. Om det redan finns en kontoinnehavare
@@ -29,7 +29,7 @@ public class Bank {
 		int mid = -1;
 		while (low < high) {
 			mid = (low + high) / 2;
-			if (accounts.get(mid).getHolder().getName() == holderName) {
+			if (accounts.get(mid).getHolder().getName().equals(holderName) && accounts.get(mid).getHolder().getIdNr() == idNr) {
 				BankAccount newAccount = new BankAccount(accounts.get(mid).getHolder());
 				accounts.add(mid, newAccount);
 				return newAccount.getAccountNumber();

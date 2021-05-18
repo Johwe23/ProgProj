@@ -2,9 +2,9 @@
 public class Customer {
 	
 	private static int custNrCount = 0;
-	String name;
-	long id;
-	int customerNr;
+	private String name;
+	private long id;
+	private int customerNr;
 	
 	/**
 	* Skapar en kund (kontoinnehavare) med namnet 'name' och id-nummer 'idNr'.

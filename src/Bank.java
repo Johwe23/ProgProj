@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Bank {
 
-	ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
+	private ArrayList<BankAccount> accounts = new ArrayList<BankAccount>();
 
 	/** Skapar en ny bank utan konton. */
 

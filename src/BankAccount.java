@@ -4,7 +4,7 @@ public class BankAccount {
 	private int accountNumber;
 	private double balance=0;
 	
-	static int accountCounter=0;
+	public static int accountCounter=0;
 	
 	/**
 	* Skapar ett nytt bankkonto åt en innehavare med namn 'holderName' och

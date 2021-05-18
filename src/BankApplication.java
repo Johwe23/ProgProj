@@ -118,7 +118,7 @@ public class BankApplication {
 				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
-			for (BankAccount account : bank.accounts) {
+			for (BankAccount account : bank.getAllAccounts()) {
 				if(account.getAccountNumber()==accNbr) validAccNbr=true;
 			}
 		} while (!validAccNbr);
@@ -143,7 +143,7 @@ public class BankApplication {
 				accNbr=expectInt();
 			} while (BankAccount.accountCounter<accNbr || accNbr<0);
 			
-			for (BankAccount account : bank.accounts) {
+			for (BankAccount account : bank.getAllAccounts()) {
 				if(account.getAccountNumber()==accNbr) validAccNbr=true;
 			}
 		} while (!validAccNbr);
@@ -175,7 +175,7 @@ public class BankApplication {
 				accNbrBen=expectInt();
 			} while (BankAccount.accountCounter<accNbrBen || accNbrBen<0);
 			
-			for (BankAccount account : bank.accounts) {
+			for (BankAccount account : bank.getAllAccounts()) {
 				if(account.getAccountNumber()==accNbrBen) validAccNbr=true;
 			}
 		} while (!validAccNbr);
@@ -188,7 +188,7 @@ public class BankApplication {
 				accNbrRec=expectInt();
 			} while ((BankAccount.accountCounter<accNbrRec || accNbrRec<0) && accNbrRec==accNbrBen);
 			
-			for (BankAccount account : bank.accounts) {
+			for (BankAccount account : bank.getAllAccounts()) {
 				if(account.getAccountNumber()==accNbrRec) validAccNbr=true;
 			}
 		} while (!validAccNbr);

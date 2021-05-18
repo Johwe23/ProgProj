@@ -89,6 +89,18 @@ public class BankApplication {
 		}
 	}
 	
+<<<<<<< Updated upstream
+=======
+	private void findCustomerFromPartOfName(){ //Alt 2
+		System.out.print("Search for: ");
+		String input = expectString();
+		ArrayList<Customer> customers = bank.findByPartofName(input);
+		for (Customer cust : customers){
+			System.out.println(cust);
+		}
+	}
+	
+>>>>>>> Stashed changes
 	private void depositInAccount() { //Alt 3
 		System.out.println("");
 		int accNbr=-1;

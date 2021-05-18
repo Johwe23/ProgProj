@@ -13,7 +13,7 @@ public class BankApplication {
 		runApplication();
 	}
 	
-	public void runApplication() {
+	private void runApplication() {
 		boolean running = true;
 		while(running) {
 			System.out.println("-------------------------------------------------------");

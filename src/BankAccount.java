@@ -14,7 +14,7 @@ public class BankAccount {
 	public BankAccount(String holderName, long holderId) {
 		this(new Customer(holderName, holderId));
 		
-	}
+	}// HEJ
 	
 	/**
 	* Skapar ett nytt bankkonto med innehavare 'holder'. Kontot tilldelas

@@ -7,7 +7,7 @@ public class Bank {
 	/** Skapar en ny bank utan konton. */
 
 	public Bank(){
-		addAccount("Daniel", 123);
+		/*addAccount("Daniel", 123);
 		addAccount("Johan", 321);
 		addAccount("Abraham", 456);
 		addAccount("Klara", 453);
@@ -15,7 +15,7 @@ public class Bank {
 		addAccount("Sebastian", 976);
 		addAccount("Gustav", 4567);
 		addAccount("Agnes", 3467);
-		addAccount("Lotta", 5463);
+		addAccount("Lotta", 5463);*/
 		
 	}
 	/**
@@ -25,7 +25,7 @@ public class Bank {
 	*/
 	public int addAccount(String holderName, long idNr){
 		int low = 0;
-		int high = accounts.size() - 1;
+		int high = accounts.size()-1;
 		int mid = -1;
 		while (low < high) {
 			mid = (low + high) / 2;
@@ -35,7 +35,7 @@ public class Bank {
 				return newAccount.getAccountNumber();
 
 			} else if (accounts.get(mid).getHolder().getName().compareTo(holderName) < 0) {
-				low = mid + 1;
+				low = mid;
 			} else {
 				high = mid - 1;
 			}
@@ -43,7 +43,7 @@ public class Bank {
 
 		BankAccount newAccount = new BankAccount(holderName, idNr);
 
-		accounts.add(high + 1, newAccount);
+		accounts.add(high+1, newAccount);
 		
 		return newAccount.getAccountNumber();
 	}

@@ -33,7 +33,7 @@ public class Bank {
 				added = true;
 				break;
 			}
-			else if(accounts.get(i).getHolder().getName().compareTo(holderName) > 0){
+			else if(accounts.get(i).getHolder().getName().compareTo(holderName) >= 0){
 				accounts.add(i, new BankAccount(new Customer(holderName, idNr)));
 				added = true;
 				break;

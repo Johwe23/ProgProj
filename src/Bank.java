@@ -28,7 +28,7 @@ public class Bank {
 		boolean added = false;
 		int i = 0;
 		while(i < accounts.size() - 1){
-			if(accounts.get(i).getHolder().getName().compareTo(holderName) == 0){
+			if(accounts.get(i).getHolder().getName().compareTo(holderName) == 0 && accounts.get(i).getHolder().getIdNr() == idNr){
 				accounts.add(i, new BankAccount(accounts.get(i).getHolder()));
 				added = true;
 				break;

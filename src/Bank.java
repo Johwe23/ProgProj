@@ -11,8 +11,9 @@ public class Bank {
 		addAccount("Johan", 321);
 		addAccount("Abraham", 456);
 		addAccount("Klara", 453);
-		addAccount("Torsten", 2578);
 		addAccount("Sebastian", 976);
+		addAccount("Torsten", 2578);
+		
 		addAccount("Gustav", 4567);
 		addAccount("Agnes", 3467);
 		addAccount("Lotta", 5463);
@@ -24,28 +25,27 @@ public class Bank {
 	* den befintliga anv�ndas. Det nya kontonumret returneras.
 	*/
 	public int addAccount(String holderName, long idNr){
-		int low = 0;
-		int high = accounts.size() - 1;
-		int mid = -1;
-		while (low < high) {
-			mid = (low + high) / 2;
-			if (accounts.get(mid).getHolder().getName().equals(holderName) && accounts.get(mid).getHolder().getIdNr() == idNr) {
-				BankAccount newAccount = new BankAccount(accounts.get(mid).getHolder());
-				accounts.add(mid, newAccount);
-				return newAccount.getAccountNumber();
-
-			} else if (accounts.get(mid).getHolder().getName().compareTo(holderName) < 0) {
-				low = mid + 1;
-			} else {
-				high = mid - 1;
+		boolean added = false;
+		int i = 0;
+		while(i < accounts.size() - 1){
+			if(accounts.get(i).getHolder().getName().compareTo(holderName) == 0){
+				accounts.add(i, new BankAccount(accounts.get(i).getHolder()));
+				added = true;
+				break;
 			}
+			else if(accounts.get(i).getHolder().getName().compareTo(holderName) > 0){
+				accounts.add(i, new BankAccount(new Customer(holderName, idNr)));
+				added = true;
+				break;
+			}
+			i++;
 		}
-
-		BankAccount newAccount = new BankAccount(holderName, idNr);
-
-		accounts.add(high + 1, newAccount);
 		
-		return newAccount.getAccountNumber();
+		if(!added){
+			accounts.add(new BankAccount(new Customer(holderName, idNr)));
+		}
+		
+		return accounts.get(i).getAccountNumber();
 	}
 
 	/**
